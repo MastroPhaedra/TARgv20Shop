@@ -1,117 +1,47 @@
-﻿@model Targv20Shop.Models.Weather.CityViewModel
+﻿@model Targv20Shop.Models.Weather.City
 
-<h1>City</h1>
+@{
+    ViewData["Title"] = "City";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Tallinn</h1>
 
 <div class="container">
-    <div class="form-group col-md-3">
-        <h2>Forecast for the selected city</h2>
 
-        <label asp-for="EffectiveDate"></label>
-        <span class="badge">@Model.EffectiveDate</span>
-        <br />
+    <div class="container">
 
-        <label asp-for="EffectiveEpochDate"></label>
-        <span class="badge">@Model.EffectiveEpochDate</span>
-        <br />
+        <div class="form-group col-md-offset-3 col-md-5">
 
-        <label asp-for="Severity"></label>
-        <span class="badge">@Model.Severity</span>
-        <br />
+            <label asp-for="Name"></label>
+            <span class="badge">@Model.Name</span>
+            <br />
 
-        <label asp-for="Text"></label>
-        <span class="badge">@Model.Text</span>
-        <br />
+            <label asp-for="Temp"></label>
+            <span class="badge">@Model.Temp °C</span>
+            <br />
 
-        <label asp-for="Category"></label>
-        <span class="badge">@Model.Category</span>
-        <br />
+            <label asp-for="TempFeelsLike"></label>
+            <span class="badge">@Model.TempFeelsLike °C</span>
+            <br />
 
-        <label asp-for="EndDate"></label>
-        <span class="badge">@Model.EndDate</span>
-        <br />
+            <label asp-for="Humidity"></label>
+            <span class="badge">@Model.Humidity %</span>
+            <br />
 
-        <label asp-for="EndEpochDate"></label>
-        <span class="badge">@Model.EndEpochDate</span>
-        <br />
+            <label asp-for="Pressure"></label>
+            <span class="badge">@Model.Pressure Hpa</span>
+            <br />
 
-        <label asp-for="MobileLink"></label>
-        <span class="badge">@Model.MobileLink</span>
-        <br />
+            <label asp-for="Wind"></label>
+            <span class="badge">@Model.Wind Km/h</span>
+            <br />
 
-        <label asp-for="Category"></label>
-        <span class="badge">@Model.Category</span>
-        <br />
+            <label asp-for="Weather"></label>
+            <span class="badge">@Model.Weather</span>
 
-        <label asp-for="Link"></label>
-        <span class="badge">@Model.Link</span>
-        <br />
+        </div>
 
-        <label asp-for="Date"></label>
-        <span class="badge">@Model.Date</span>
-        <br />
-
-        <label asp-for="EpochDate"></label>
-        <span class="badge">@Model.EpochDate</span>
-        <br />
-
-        <label asp-for="TempMinValue"></label>
-        <span class="badge">@Model.TempMinValue</span>
-        <br />
-
-        <label asp-for="TempMinUnit"></label>
-        <span class="badge">@Model.TempMinUnit</span>
-        <br />
-
-        <label asp-for="TempMinUnitType"></label>
-        <span class="badge">@Model.TempMinUnitType</span>
-        <br />
-
-        <label asp-for="TempMaxValue"></label>
-        <span class="badge">@Model.TempMaxValue</span>
-        <br />
-
-        <label asp-for="TempMaxUnit"></label>
-        <span class="badge">@Model.TempMaxUnit</span>
-        <br />
-
-        <label asp-for="TempMaxUnitType"></label>
-        <span class="badge">@Model.TempMaxUnitType</span>
-        <br />
-
-        <label asp-for="DayIcon"></label>
-        <span class="badge">@Model.DayIcon</span>
-        <br />
-
-        <label asp-for="DayIconPhrase"></label>
-        <span class="badge">@Model.DayIconPhrase</span>
-        <br />
-
-        <label asp-for="DayHasPrecipitation"></label>
-        <span class="badge">@Model.DayHasPrecipitation</span>
-        <br />
-
-        <label asp-for="DayPrecipitationType"></label>
-        <span class="badge">@Model.DayPrecipitationType</span>
-        <br />
-
-        <label asp-for="DayPrecipitationIntensity"></label>
-        <span class="badge">@Model.DayPrecipitationIntensity</span>
-        <br />
-
-        <label asp-for="NightIcon"></label>
-        <span class="badge">@Model.NightIcon</span>
-        <br />
-
-        <label asp-for="NightHasPrecipitation"></label>
-        <span class="badge">@Model.NightHasPrecipitation</span>
-        <br />
-
-        <label asp-for="NightPrecipitationType"></label>
-        <span class="badge">@Model.NightPrecipitationType</span>
-        <br />
-
-        <label asp-for="NightPrecipitationIntensity"></label>
-        <span class="badge">@Model.NightPrecipitationIntensity</span>
-        <br />
     </div>
+
 </div>

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Targv20Shop.Core.Dtos.Weather;
 using Targv20Shop.Core.ServiceInterface;
 using Targv20Shop.Models.Weather;
@@ -43,45 +39,64 @@ namespace Targv20Shop.Controllers
         [HttpGet]
         public IActionResult City(string city)
         {
-            WeatherResultDto dto = new WeatherResultDto();
-
             //vaja teha andmete edastamine service classi ja sealt andmete k'tte saamine l'bi dto classi.
-            var weatherResponse = _weatherForecastServices.WeatherDetail(dto);
+            var dto = _weatherForecastServices.GetForecast(city);
 
-            CityViewModel model = new CityViewModel();
+            City model = new City();
 
-            model.EffectiveDate = weatherResponse.Result.EffectiveDate;
-            model.EffectiveEpochDate = weatherResponse.Result.EffectiveEpochDate;
-            model.Severity = weatherResponse.Result.Severity;
-            model.Text = weatherResponse.Result.Text;
-            model.Category = weatherResponse.Result.Category;
-            model.EndDate = weatherResponse.Result.EndDate;
-            model.EndEpochDate = weatherResponse.Result.EndEpochDate;
-            model.MobileLink = weatherResponse.Result.MobileLink;
-            model.Link = weatherResponse.Result.Link;
+            //Name
+            model.Name = dto.Name;
 
-            model.Date = dto.Date;
-            model.EpochDate = dto.EpochDate;
+            //Main
+            model.Temp = dto.Main.Temp;
+            model.Pressure = dto.Main.Pressure;
+            model.Humidity = dto.Main.Humidity;
+            model.TempFeelsLike = dto.Main.Feels_Like;
 
-            model.TempMinValue = dto.TempMinValue;
-            model.TempMinUnit = dto.TempMinUnit;
-            model.TempMinUnitType = dto.TempMinUnitType;
+            //Coord
+            //dto.Coord.Lon = weatherInfo.Coord.Lon;
+            //dto.Coord.Lat = weatherInfo.Coord.Lat;
 
-            model.TempMaxValue = dto.TempMaxValue;
-            model.TempMaxUnit = dto.TempMaxUnit;
-            model.TempMaxUnitType = dto.TempMaxUnitType;
+            //Weather
+            //model.Weather = dto.Weather[0].Id; //Only for Integer
+            model.Weather = dto.Weather[0].Main;
+            //dto.Weather[0].Description = weatherInfo.Weather[0].Description;
+            //dto.Weather[0].Icon = weatherInfo.Weather[0].Icon;
 
-            model.DayIcon = dto.DayIcon;
-            model.DayIconPhrase = dto.DayIconPhrase;
-            model.DayHasPrecipitation = dto.DayHasPrecipitation;
-            model.DayPrecipitationType = dto.DayPrecipitationType;
-            model.DayPrecipitationIntensity = dto.DayPrecipitationIntensity;
+            //Base
+            //dto.Base = weatherInfo.Base;
 
-            model.NightIcon = dto.NightIcon;
-            model.NightIconPhrase = dto.NightIconPhrase;
-            model.NightHasPrecipitation = dto.NightHasPrecipitation;
-            model.NightPrecipitationType = dto.NightPrecipitationType;
-            model.NightPrecipitationIntensity = dto.NightPrecipitationIntensity;
+            //Visibility
+            //dto.Visibility = weatherInfo.Visibility;
+
+            //Wind
+            model.Wind = dto.Wind.Speed;
+
+            //Clouds
+            //dto.Clouds.All = weatherInfo.Clouds.All;
+
+            //Dt
+            //dto.Dt = weatherInfo.Dt;
+
+            //Sys
+            //dto.Sys.Type = weatherInfo.Sys.Type;
+            //dto.Sys.Id = weatherInfo.Sys.Id;
+            //dto.Sys.Message = weatherInfo.Sys.Message;
+            //dto.Sys.Country = weatherInfo.Sys.Country;
+            //dto.Sys.Sunrise = weatherInfo.Sys.Sunrise;
+            //dto.Sys.Sunshine = weatherInfo.Sys.Sunshine;
+
+            //Timezone
+            //dto.Timezone = weatherInfo.Timezone;
+
+            //Id
+            //dto.Id = weatherInfo.Id;
+
+            //Name
+            //dto.Name = weatherInfo.Name;
+
+            //Cod
+            //dto.Cod = weatherInfo.Cod;
 
             return View(model);
         }

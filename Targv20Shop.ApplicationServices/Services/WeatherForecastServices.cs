@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using RestSharp;
+using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using Targv20Shop.Core.Dtos.Weather;
@@ -12,61 +13,84 @@ namespace Targv20Shop.ApplicationServices.Services
 {
     public class WeatherForecastServices : IWeatherForecastServices
     {
-        public async Task<WeatherResultDto> WeatherDetail(WeatherResultDto dto)
+        public async Task<WeatherResponseDto> WeatherDetail(WeatherResponseDto dto)
         {
             //string apikey = "nYHo7WQ7OamrCz4dwUB1TrKUXgFWVU7Y";
             //var Location = "Tallinn";
             // connection string
-            //var url = $"http://dataservice.accuweather.com/forecasts/v1/daily/1day/{Location}?apikey={idWeather}";
-            var url = $"http://dataservice.accuweather.com/forecasts/v1/daily/1day/127964?apikey=nYHo7WQ7OamrCz4dwUB1TrKUXgFWVU7Y&language=et-et&metric=true";
+           var url = $"http://api.openweathermap.org/data/2.5/weather?q=Tallinn&units=metric&cnt=1&APPID=10802a322cab84354d59fb3e37ee800e";
 
-            using (WebClient client = new WebClient())
+           using (WebClient client = new WebClient())
             {
                 string json = client.DownloadString(url);
-                //ainult ühe classi saab deserialiseerida
-                WeatherRootDto weatherInfo = (new JavaScriptSerializer()).Deserialize<WeatherRootDto>(json);
 
-                dto.EffectiveDate = weatherInfo.Headline.EffectiveDate;
-                dto.EffectiveEpochDate = weatherInfo.Headline.EffectiveEpochDate;
-                dto.Severity = weatherInfo.Headline.Severity;
-                dto.Text = weatherInfo.Headline.Text;
-                dto.Category = weatherInfo.Headline.Category;
-                dto.EndDate = weatherInfo.Headline.EndDate;
-                dto.EndEpochDate = weatherInfo.Headline.EndEpochDate;
+                WeatherResponseDto weatherInfo = (new JavaScriptSerializer()).Deserialize<WeatherResponseDto>(json);
+                
+                //Main
+                dto.Main.Temp = weatherInfo.Main.Temp;
+                dto.Main.Pressure = weatherInfo.Main.Pressure;
+                dto.Main.Humidity = weatherInfo.Main.Humidity;
+                dto.Main.Temp_Min = weatherInfo.Main.Temp_Min;
+                dto.Main.Temp_Max = weatherInfo.Main.Temp_Max;
+                dto.Main.Feels_Like = weatherInfo.Main.Feels_Like;
 
-                dto.MobileLink = weatherInfo.Headline.MobileLink;
-                dto.Link = weatherInfo.Headline.Link;
+                //Coord
+                dto.Coord.Lon = weatherInfo.Coord.Lon;
+                dto.Coord.Lat = weatherInfo.Coord.Lat;
 
-                dto.TempMinValue = weatherInfo.DailyForecasts[0].Temperature.Minimum.Value;
-                dto.TempMinUnit = weatherInfo.DailyForecasts[0].Temperature.Minimum.Unit;
-                dto.TempMinUnitType = weatherInfo.DailyForecasts[0].Temperature.Minimum.UnitType;
+                //Weather
+                dto.Weather[0].Id = weatherInfo.Weather[0].Id; //Only for Integer
+                dto.Weather[0].Main = weatherInfo.Weather[0].Main;
+                dto.Weather[0].Description = weatherInfo.Weather[0].Description;
+                dto.Weather[0].Icon = weatherInfo.Weather[0].Icon;
 
-                dto.TempMaxValue = weatherInfo.DailyForecasts[0].Temperature.Maximum.Value;
-                dto.TempMaxUnit = weatherInfo.DailyForecasts[0].Temperature.Maximum.Unit;
-                dto.TempMaxUnitType = weatherInfo.DailyForecasts[0].Temperature.Maximum.UnitType;
+                //Base
+                dto.Base = weatherInfo.Base;
 
-                dto.DayIcon = weatherInfo.DailyForecasts[0].Day.Icon;
-                dto.DayIconPhrase = weatherInfo.DailyForecasts[0].Day.IconPhrase;
-                dto.DayHasPrecipitation = weatherInfo.DailyForecasts[0].Day.HasPrecipitation;
-                dto.DayPrecipitationType = weatherInfo.DailyForecasts[0].Day.PrecipitationType;
-                dto.DayPrecipitationIntensity = weatherInfo.DailyForecasts[0].Day.PrecipitationIntensity;
+                //Visibility
+                dto.Visibility = weatherInfo.Visibility;
 
-                dto.NightIcon = weatherInfo.DailyForecasts[0].Night.Icon;
-                dto.NightIconPhrase = weatherInfo.DailyForecasts[0].Night.IconPhrase;
-                dto.NightHasPrecipitation = weatherInfo.DailyForecasts[0].Night.HasPrecipitation;
-                dto.NightPrecipitationType = weatherInfo.DailyForecasts[0].Night.PrecipitationType;
-                dto.NightPrecipitationIntensity = weatherInfo.DailyForecasts[0].Night.PrecipitationIntensity;
+                //Wind
+                dto.Wind.Speed = weatherInfo.Wind.Speed;
+                dto.Wind.Deg = weatherInfo.Wind.Deg;
+
+                //Clouds
+                dto.Clouds.All = weatherInfo.Clouds.All;
+
+                //Dt
+                dto.Dt = weatherInfo.Dt;
+
+                //Sys
+                dto.Sys.Type = weatherInfo.Sys.Type;
+                dto.Sys.Id = weatherInfo.Sys.Id;
+                dto.Sys.Message = weatherInfo.Sys.Message;
+                dto.Sys.Country = weatherInfo.Sys.Country;
+                dto.Sys.Sunrise = weatherInfo.Sys.Sunrise;
+                dto.Sys.Sunshine = weatherInfo.Sys.Sunshine;
+
+                //Timezone
+                dto.Timezone = weatherInfo.Timezone;
+
+                //Id
+                dto.Id = weatherInfo.Id;
+
+                //Name
+                dto.Name = weatherInfo.Name;
+
+                //Cod
+                dto.Cod = weatherInfo.Cod;
+
 
                 var jsonString = new JavaScriptSerializer().Serialize(dto);
             }
             return dto;
         }
 
-        WeatherResultDto IWeatherForecastServices.GetForecast(string city)
+        WeatherResponseDto IWeatherForecastServices.GetForecast(string City)
         {
             //string appKey = "nYHo7WQ7OamrCz4dwUB1TrKUXgFWVU7Y";
             // Connection String
-            var client = new RestClient($"http://dataservice.accuweather.com/forecasts/v1/daily/1day/127964?apikey=nYHo7WQ7OamrCz4dwUB1TrKUXgFWVU7Y&metric=true");
+            var client = new RestClient($"http://api.openweathermap.org/data/2.5/weather?q=Tallinn&units=metric&cnt=1&APPID=10802a322cab84354d59fb3e37ee800e");
             var request = new RestRequest(Method.GET);
             IRestResponse response = client.Execute(request);
 
@@ -76,10 +100,15 @@ namespace Targv20Shop.ApplicationServices.Services
                 var content = JsonConvert.DeserializeObject<JToken>(response.Content);
 
                 // Deserialize the JToken object into our WeatherResponse Class
-                return content.ToObject<WeatherResultDto>();
+                return content.ToObject<WeatherResponseDto>();
             }
 
             return null;
+        }
+
+        string IWeatherForecastServices.WeatherDetail(string City)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

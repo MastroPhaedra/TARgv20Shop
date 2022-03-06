@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Targv20Shop.ApplicationServices.Services;
 using Targv20Shop.Core.ServiceInterface;
 using Targv20Shop.Data;
+using Microsoft.AspNetCore.Http;
 
 namespace Targv20Shop
 {
@@ -36,6 +37,8 @@ namespace Targv20Shop
             services.AddScoped<IFileService, FileServices>();
             services.AddScoped<ISpaceshipService, SpaceshipServices>();
             services.AddScoped<IWeatherForecastServices, WeatherForecastServices>();
+
+            services.AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

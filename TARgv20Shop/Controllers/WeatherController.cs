@@ -74,14 +74,14 @@ namespace Targv20Shop.Controllers
             model.DayIcon = dto.DayIcon;
             model.DayIconPhrase = dto.DayIconPhrase;
             model.DayHasPrecipitation = dto.DayHasPrecipitation;
-            model.DayPrecipitationType = dto.DayPrecipitationType;
-            model.DayPrecipitationIntensity = dto.DayPrecipitationIntensity;
+            //model.DayPrecipitationType = dto.DayPrecipitationType;
+            //model.DayPrecipitationIntensity = dto.DayPrecipitationIntensity;
 
             model.NightIcon = dto.NightIcon;
             model.NightIconPhrase = dto.NightIconPhrase;
             model.NightHasPrecipitation = dto.NightHasPrecipitation;
-            model.NightPrecipitationType = dto.NightPrecipitationType;
-            model.NightPrecipitationIntensity = dto.NightPrecipitationIntensity;
+            //model.NightPrecipitationType = dto.NightPrecipitationType;
+            //model.NightPrecipitationIntensity = dto.NightPrecipitationIntensity;
 
             return View(model);
         }

@@ -20,7 +20,7 @@ namespace Targv20Shop.ApplicationServices.Services
             //var url = $"http://dataservice.accuweather.com/forecasts/v1/daily/1day/{Location}?apikey={idWeather}";
             var url = $"http://dataservice.accuweather.com/forecasts/v1/daily/1day/127964?apikey=nYHo7WQ7OamrCz4dwUB1TrKUXgFWVU7Y&language=et-et&metric=true";
 
-            using (WebClient client = new WebClient())
+            using (WebClient client = new WebClient()) // WebClient
             {
                 string json = client.DownloadString(url);
                 //ainult ühe classi saab deserialiseerida
@@ -48,14 +48,14 @@ namespace Targv20Shop.ApplicationServices.Services
                 dto.DayIcon = weatherInfo.DailyForecasts[0].Day.Icon;
                 dto.DayIconPhrase = weatherInfo.DailyForecasts[0].Day.IconPhrase;
                 dto.DayHasPrecipitation = weatherInfo.DailyForecasts[0].Day.HasPrecipitation;
-                dto.DayPrecipitationType = weatherInfo.DailyForecasts[0].Day.PrecipitationType;
-                dto.DayPrecipitationIntensity = weatherInfo.DailyForecasts[0].Day.PrecipitationIntensity;
+                //dto.DayPrecipitationType = weatherInfo.DailyForecasts[0].Day.PrecipitationType;
+                //dto.DayPrecipitationIntensity = weatherInfo.DailyForecasts[0].Day.PrecipitationIntensity;
 
                 dto.NightIcon = weatherInfo.DailyForecasts[0].Night.Icon;
                 dto.NightIconPhrase = weatherInfo.DailyForecasts[0].Night.IconPhrase;
                 dto.NightHasPrecipitation = weatherInfo.DailyForecasts[0].Night.HasPrecipitation;
-                dto.NightPrecipitationType = weatherInfo.DailyForecasts[0].Night.PrecipitationType;
-                dto.NightPrecipitationIntensity = weatherInfo.DailyForecasts[0].Night.PrecipitationIntensity;
+                //dto.NightPrecipitationType = weatherInfo.DailyForecasts[0].Night.PrecipitationType;
+                //dto.NightPrecipitationIntensity = weatherInfo.DailyForecasts[0].Night.PrecipitationIntensity;
 
                 var jsonString = new JavaScriptSerializer().Serialize(dto);
             }

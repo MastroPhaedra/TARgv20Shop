@@ -1,9 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Spaceship.Test.Macros;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,8 +11,9 @@ using System.Threading.Tasks;
 using Targv20Shop.ApplicationServices.Services;
 using Targv20Shop.Core.ServiceInterface;
 using Targv20Shop.Data;
+using Targv20Shop.SpaceshipTest.Macros;
 
-namespace Targv20Shop.Spaceship.Test
+namespace Targv20Shop.SpaceshipTest
 {
     public class TestBase : IDisposable
     {
@@ -81,4 +81,4 @@ namespace Targv20Shop.Spaceship.Test
             }
         }
     }
-}
+} 

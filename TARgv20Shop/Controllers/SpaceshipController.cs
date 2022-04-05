@@ -8,6 +8,7 @@ using Targv20Shop.Core.Dtos;
 using Targv20Shop.Core.ServiceInterface;
 using Targv20Shop.Data;
 using Targv20Shop.Models.Spaceship;
+using Microsoft.Extensions.Logging;
 
 namespace Targv20Shop.Controllers
 {
@@ -16,15 +17,18 @@ namespace Targv20Shop.Controllers
 
         private readonly Targv20ShopDbContext _context;
         private readonly ISpaceshipService _spaceshipService;
+        private readonly ILogger<SpaceshipController> _logger;
 
         public SpaceshipController
             (
                 Targv20ShopDbContext context,
-                ISpaceshipService spaceshipService
+                ISpaceshipService spaceshipService,
+                ILogger logger
             )
         {
             _context = context;
             _spaceshipService = spaceshipService;
+            _logger = (ILogger<SpaceshipController>)logger;
         }
 
         [HttpGet]
@@ -91,7 +95,7 @@ namespace Targv20Shop.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(Guid id)
         {
-            var spaceship = await _spaceshipService.Edit(id);
+            var spaceship = await _spaceshipService.GetAsync(id);
             if (spaceship == null)
             {
                 return NotFound();

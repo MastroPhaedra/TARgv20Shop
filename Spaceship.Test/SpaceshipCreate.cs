@@ -1,22 +1,25 @@
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using Targv20Shop.ApplicationServices.Services;
 using Targv20Shop.Core.Dtos;
 using Targv20Shop.Core.ServiceInterface;
 using Targv20Shop.Models.Spaceship;
+using Targv20Shop.Spaceship.Test;
 using Xunit;
 
 namespace Spaceship.Test
 {
-    public class SpaceshipCreate
+    public class SpaceshipCreate : TestBase
     {
-        private readonly ISpaceshipService _spaceship;
-        public SpaceshipCreate
-        (ISpaceshipService spaceship){
-            spaceship = _spaceship;
-    }
+        //private readonly ISpaceshipService _spaceship;
+        //public SpaceshipCreate (ISpaceshipService spaceship)
+        //{
+        //    _spaceship = spaceship;
+        //}
         [Fact]
         public void when_CreateNewSpaceship_ThenWillAddNewData()
         {
+            var service = Svc<ISpaceshipService>();
             var spaceship = new SpaceshipDto
             {
                 Name = "Superman",
@@ -29,7 +32,7 @@ namespace Spaceship.Test
                 ModifiedAt = DateTime.Now
             };
 
-            var result = _spaceship.Add(spaceship);
+            var result = service.Add(spaceship);
             //Assert.Empty(result);
         }
     }
